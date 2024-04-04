@@ -1,2 +1,2 @@
-# playlist-generator
-Creating personalized playlists for Spotify users!
+# spotify-trivia
+Test how well you know your Spotify listening history!
