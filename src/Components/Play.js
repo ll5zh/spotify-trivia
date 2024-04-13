@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../constants';
+import Question from './Question';
+import { createRecentTrack } from './questions';
 
 function Play() {
   const [token, setToken] = useState('');
@@ -9,12 +11,15 @@ function Play() {
   const [topTracks, setTopTracks] = useState([]);
   const [topArtists, setTopArtists] = useState([]);
 
+  const [index, setIndex] = useState(-1);
+  
+  const [triviaQuestions, setTriviaQuestions] = useState([]);
+
   useEffect(() => {
     const accessToken = window.localStorage.getItem('access_token');
     if (accessToken) {
       setToken(accessToken);
       if (token) {
-        console.log(token);
         sendRequests();
       }
     }
@@ -25,8 +30,18 @@ function Play() {
       console.log(recentTracks);
       console.log(topTracks);
       console.log(topArtists);
+      // create questions
+      const recentTrackQuestion = createRecentTrack(recentTracks);
+      setTriviaQuestions([recentTrackQuestion]);
     }
   }, [recentTracks, topTracks, topArtists]);
+
+  useEffect(() => {
+    if (triviaQuestions.length === 1) {
+      console.log(triviaQuestions);
+      setIndex(0);
+    }
+  }, [triviaQuestions]);
 
   async function sendRequests() {
     const authHeaders = {
@@ -52,12 +67,27 @@ function Play() {
     setTopArtists(topArtistsResponse.data.items);
   }
 
+  
   return(
     <div className="Play">
       <h3>Let's Play!</h3>
+      {index >= 0 ? (
+        <div>
+          <h4>Question {index + 1}</h4>
+          <Question
+            prompt={triviaQuestions[index].prompt}
+            answersTrack={triviaQuestions[index].answersTrack}
+            answersArtist={triviaQuestions[index].answersArtist}
+            answersImage={triviaQuestions[index].answersImage}
+            caption={triviaQuestions[index].caption}
+          />
+        </div>
+      ) : (
+        <h4>Waiting</h4>
+      )
+      }
     </div>
   );
-
 }
 
 export default Play;

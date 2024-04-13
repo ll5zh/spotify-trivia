@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { CLIENT_ID, REDIRECT_URI, SCOPE } from '../constants';
 
 function Home() {
