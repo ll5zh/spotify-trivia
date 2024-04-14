@@ -1,3 +1,5 @@
+import './Question.css';
+
 function Question(
   { prompt,
     answersTrack,
@@ -5,9 +7,28 @@ function Question(
     answersImage,
     caption
   }) {
+  
   return(
     <div className="Question">
       <p>{prompt}</p>
+      <div className="answers">
+        <button className="answer">
+          <img src={answersImage[0]}></img>
+          <p>{answersTrack[0]}</p>
+        </button>
+        <button className="answer">
+          <img src={answersImage[1]}></img>
+          <p>{answersTrack[1]}</p>
+        </button>
+        <button className="answer">
+          <img src={answersImage[2]}></img>
+          <p>{answersTrack[2]}</p>
+        </button>
+        <button className="answer">
+          <img src={answersImage[3]}></img>
+          <p>{answersTrack[3]}</p>
+        </button>
+      </div>
     </div>
   )
 }

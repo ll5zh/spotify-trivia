@@ -1,0 +1,36 @@
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.answer {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  background-color: grey;
+  align-items: center;
+  border-radius: 1rem;
+}
+
+.answer > img {
+  max-width: 5rem;
+  border-radius: 1rem 0rem 0rem 1rem;
+}
+
+.answer > p {
+  justify-self: start;
+}
+
+button {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	outline: inherit;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
