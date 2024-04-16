@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../constants';
 import Question from './Question';
-import { createRecentTrack } from './questions';
+import { createRecentTrack, createTopItem } from './questions';
+import './Play.css';
 
 function Play() {
   const [token, setToken] = useState('');
@@ -32,12 +33,14 @@ function Play() {
       console.log(topArtists);
       // create questions
       const recentTrackQuestion = createRecentTrack(recentTracks);
-      setTriviaQuestions([recentTrackQuestion]);
+      const topTrackQuestion = createTopItem(topTracks, 'track');
+      const topArtistQuestion = createTopItem(topArtists, 'artist');
+      setTriviaQuestions([recentTrackQuestion, topTrackQuestion, topArtistQuestion]);
     }
   }, [recentTracks, topTracks, topArtists]);
 
   useEffect(() => {
-    if (triviaQuestions.length === 1) {
+    if (triviaQuestions.length === 3) {
       console.log(triviaQuestions);
       setIndex(0);
     }
@@ -67,7 +70,16 @@ function Play() {
     setTopArtists(topArtistsResponse.data.items);
   }
 
-  
+  const [nextButton, setNextButton] = useState(false);
+
+  function showNextButton() {
+    setNextButton(true);
+  }
+
+  function showNextQuestion() {
+    setIndex(index + 1);
+  }
+
   return(
     <div className="Play">
       <h3>Let's Play!</h3>
@@ -80,11 +92,15 @@ function Play() {
             answersArtist={triviaQuestions[index].answersArtist}
             answersImage={triviaQuestions[index].answersImage}
             caption={triviaQuestions[index].caption}
+            handleNext={showNextButton}
           />
         </div>
       ) : (
         <h4>Waiting</h4>
       )
+      }
+      {nextButton &&
+        <button className="next" onClick={showNextQuestion}>Next</button>
       }
     </div>
   );
