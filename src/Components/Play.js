@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../constants';
 import Question from './Question';
-import { createRecentTrack, createTopItem } from './questions';
+import { createRecentTrack, createTopItem, createPopularityItem } from './questions';
 import './Play.css';
 
 function Play() {
@@ -35,12 +35,24 @@ function Play() {
       const recentTrackQuestion = createRecentTrack(recentTracks);
       const topTrackQuestion = createTopItem(topTracks, 'track');
       const topArtistQuestion = createTopItem(topArtists, 'artist');
-      setTriviaQuestions([recentTrackQuestion, topTrackQuestion, topArtistQuestion]);
+      const popularTrackQuestion = createPopularityItem(topTracks, 'track', true);
+      const uniqueTrackQuestion = createPopularityItem(topTracks, 'track', false);
+      const popularArtistQuestion = createPopularityItem(topArtists, 'artist', true);
+      const uniqueArtistQuestion = createPopularityItem(topArtists, 'artist', false);
+      setTriviaQuestions([
+        recentTrackQuestion,
+        topTrackQuestion,
+        topArtistQuestion,
+        popularTrackQuestion,
+        uniqueTrackQuestion,
+        popularArtistQuestion,
+        uniqueArtistQuestion,
+      ]);
     }
   }, [recentTracks, topTracks, topArtists]);
 
   useEffect(() => {
-    if (triviaQuestions.length === 3) {
+    if (triviaQuestions.length === 7) {
       console.log(triviaQuestions);
       setIndex(0);
     }
@@ -77,6 +89,7 @@ function Play() {
   }
 
   function showNextQuestion() {
+    setNextButton(false);
     setIndex(index + 1);
   }
 
