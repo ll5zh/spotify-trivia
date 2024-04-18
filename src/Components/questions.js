@@ -92,7 +92,7 @@ export function createPopularityItem(data, type, isMostPopular) {
   } else {
     answersArtist.push(data[0].name);
     answersImage.push(data[0].images[0].url);
-    const filteredData = data.filter((track) => track.popularity != popularityToRemove);
+    const filteredData = data.filter((artist) => artist.popularity != popularityToRemove);
     for (let i = 0; i < 3; i++) {
       answersArtist.push(filteredData[i].name);
       answersImage.push(filteredData[i].images[0].url);
