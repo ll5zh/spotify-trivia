@@ -16,6 +16,8 @@ function Play() {
   
   const [triviaQuestions, setTriviaQuestions] = useState([]);
 
+  const QUESTION_COUNT = 7;
+
   useEffect(() => {
     const accessToken = window.localStorage.getItem('access_token');
     if (accessToken) {
@@ -52,7 +54,7 @@ function Play() {
   }, [recentTracks, topTracks, topArtists]);
 
   useEffect(() => {
-    if (triviaQuestions.length === 7) {
+    if (triviaQuestions.length === QUESTION_COUNT) {
       console.log(triviaQuestions);
       setIndex(0);
     }
@@ -96,19 +98,23 @@ function Play() {
   return(
     <div className="Play">
       <h3>Let's Play!</h3>
-      {index >= 0 ? (
+      {index >= 0 && index < QUESTION_COUNT ? (
         <div>
           <h4>Question {index + 1}</h4>
           <Question
             prompt={triviaQuestions[index].prompt}
-            answersTrack={triviaQuestions[index].answersTrack}
-            answersArtist={triviaQuestions[index].answersArtist}
-            answersImage={triviaQuestions[index].answersImage}
+            answers={triviaQuestions[index].answers}
             caption={triviaQuestions[index].caption}
             handleNext={showNextButton}
+            resetQuestion={true}
+            key={index.toString()}
           />
         </div>
-      ) : (
+      ) : index == QUESTION_COUNT ? (
+        <div>
+          <h4>Thanks for playing!</h4>
+        </div>
+      ): (
         <h4>Waiting</h4>
       )
       }

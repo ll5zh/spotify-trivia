@@ -7,7 +7,6 @@
 .answer {
   display: grid;
   grid-template-columns: 2fr 3fr;
-  background-color: grey;
   align-items: center;
   border-radius: 1rem;
   border: none;
@@ -28,4 +27,12 @@
 
 .answer:hover {
   transform: scale(1.1);
+}
+
+.reveal-correct {
+  background-color: green;
+}
+
+.reveal-incorrect {
+  background-color: red;
 }
