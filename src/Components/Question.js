@@ -27,7 +27,11 @@ function Question(
 
   function randomizeQuestionOrder() {
     const correctAnswer = answers[0];
-    answers.sort((a, b) => Math.random() - 0.5);
+    // Fisher-Yates algorithm: https://www.geeksforgeeks.org/shuffle-a-given-array-using-fisher-yates-shuffle-algorithm/
+    for (let i = answers.length - 1; i > 0; i--) {
+      const randomIndex = Math.floor(Math.random() * (i + 1)); // in [0, i]
+      [answers[i], answers[randomIndex]] = [answers[randomIndex], answers[i]];
+    }
     for (let i = 0; i < 4; i++) {
       if (answers[i] === correctAnswer) {
         setCorrectIndex(i);
@@ -37,9 +41,6 @@ function Question(
   }
 
   useEffect(() => {
-    // randomize question order
-    // let correctImage = answersImage[0];
-    // answersTrack.sort((a, b,) => Math.random() - 0.5);
     answers.forEach((answer) => {
       if (answer.track) console.log(answer.track);
       else console.log(answer.artist);
