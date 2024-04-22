@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './Question.css';
 
 function Question(
@@ -11,15 +11,24 @@ function Question(
 
   const [answered, setAnswered] = useState(false);
 
-  const [correctColour, setCorrectColour] = useState('grey');
-  const [incorrectColour, setIncorrectColour] = useState('grey');
+  const DEFAULT_COLOUR = 'grey';
+  const CORRECT_COLOUR = 'green';
+  const INCORRECT_COLOUR = 'red';
+
+  const [colours, setColours] = useState([DEFAULT_COLOUR, DEFAULT_COLOUR, DEFAULT_COLOUR, DEFAULT_COLOUR]);
 
   const [correctIndex, setCorrectIndex] = useState(-1);
   
-  function showAnswer() {
+  function showAnswer(index) {
     // change colours
-    setCorrectColour('green');
-    setIncorrectColour('red');
+    let newColours = colours;
+    if (index == correctIndex) {
+      newColours[index] = CORRECT_COLOUR;
+    } else {
+      newColours[index] = INCORRECT_COLOUR;
+      newColours[correctIndex] = CORRECT_COLOUR;
+    }
+    setColours(newColours);
     // show caption
     setAnswered(true);
     handleNext();
@@ -47,19 +56,12 @@ function Question(
     });
     randomizeQuestionOrder();
     
-    
     if (resetQuestion) {
-      setCorrectColour('grey');
-      setIncorrectColour('grey');
+      setColours([DEFAULT_COLOUR, DEFAULT_COLOUR, DEFAULT_COLOUR, DEFAULT_COLOUR]);
       setAnswered(false);
     } else {
-      setCorrectColour('green');
-      setIncorrectColour('red');
       setAnswered(true);
     }
-    console.log(resetQuestion);
-    console.log(correctColour);
-    console.log(incorrectColour);
   }, [resetQuestion]);
   
   return(
@@ -68,32 +70,32 @@ function Question(
       <div className="answers">
         <button
           className="answer"
-          onClick={showAnswer}
-          style={{ backgroundColor: correctIndex == 0 ? correctColour : incorrectColour }}
+          onClick={() => showAnswer(0)}
+          style={{ backgroundColor: colours[0] }}
         >
           <img src={answers[0].image}></img>
           <p>{answers[0].track ? answers[0].track : answers[0].artist}</p>
         </button>
         <button
           className="answer"
-          onClick={showAnswer}
-          style={{ backgroundColor: correctIndex == 1 ? correctColour : incorrectColour }}
+          onClick={() => showAnswer(1)}
+          style={{ backgroundColor: colours[1] }}
         >
           <img src={answers[1].image}></img>
           <p>{answers[1].track ? answers[1].track : answers[1].artist}</p>
         </button>
         <button
           className="answer"
-          onClick={showAnswer}
-          style={{ backgroundColor: correctIndex == 2 ? correctColour : incorrectColour }}
+          onClick={() => showAnswer(2)}
+          style={{ backgroundColor: colours[2] }}
         >
           <img src={answers[2].image}></img>
           <p>{answers[2].track ? answers[2].track : answers[2].artist}</p>
         </button>
         <button
           className="answer"
-          onClick={showAnswer}
-          style={{ backgroundColor: correctIndex == 3 ? correctColour : incorrectColour }}
+          onClick={() => showAnswer(3)}
+          style={{ backgroundColor: colours[3] }}
         >
           <img src={answers[3].image}></img>
           <p>{answers[3].track ? answers[3].track : answers[3].artist}</p>
