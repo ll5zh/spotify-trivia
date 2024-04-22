@@ -95,6 +95,14 @@ function Play() {
     setIndex(index + 1);
   }
 
+  const [score, setScore] = useState(0);
+
+  function updateScore(isCorrect) {
+    if (isCorrect) {
+      setScore(score + 1);
+    }
+  }
+
   return(
     <div className="Play">
       <h3>Let's Play!</h3>
@@ -107,20 +115,22 @@ function Play() {
             caption={triviaQuestions[index].caption}
             handleNext={showNextButton}
             resetQuestion={true}
+            status={updateScore}
             key={index.toString()}
           />
+          {nextButton &&
+            <button className="next" onClick={showNextQuestion}>Next</button>
+          }
         </div>
       ) : index == QUESTION_COUNT ? (
         <div>
-          <h4>Thanks for playing!</h4>
+          <h4>Thanks for playing! Your score is { score } out of { QUESTION_COUNT }.</h4>
         </div>
       ): (
         <h4>Waiting</h4>
       )
       }
-      {nextButton &&
-        <button className="next" onClick={showNextQuestion}>Next</button>
-      }
+      
     </div>
   );
 }

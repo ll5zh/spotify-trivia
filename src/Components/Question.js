@@ -6,7 +6,8 @@ function Question(
     answers,
     caption,
     handleNext,
-    resetQuestion
+    resetQuestion,
+    status
   }) {
 
   const [answered, setAnswered] = useState(false);
@@ -21,8 +22,9 @@ function Question(
   
   function showAnswer(index) {
     // change colours
+    const isCorrect = index == correctIndex;
     let newColours = colours;
-    if (index == correctIndex) {
+    if (isCorrect) {
       newColours[index] = CORRECT_COLOUR;
     } else {
       newColours[index] = INCORRECT_COLOUR;
@@ -31,6 +33,8 @@ function Question(
     setColours(newColours);
     // show caption
     setAnswered(true);
+
+    status(isCorrect);
     handleNext();
   }
 
