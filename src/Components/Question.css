@@ -5,8 +5,7 @@
 }
 
 .answer {
-  display: grid;
-  grid-template-columns: 2fr 3fr;
+  display: flex;
   align-items: center;
   border-radius: 1rem;
   border: none;
@@ -14,19 +13,24 @@
 	font: inherit;
 	outline: inherit;
   transition: all 0.3s ease;
+  height: 5rem;
+  width: 100%;
 }
 
 .answer > img {
-  max-width: 5rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 1rem 0rem 0rem 1rem;
+  float: left;
 }
 
 .answer > p {
-  justify-self: start;
+  justify-self: center;
+  padding: 0 1rem;
 }
 
 .answer:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .reveal-correct {
