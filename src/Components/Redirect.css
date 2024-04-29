@@ -1,0 +1,12 @@
+.Redirect {
+  background-color: #1DB954;
+  padding: 2rem;
+}
+
+.Redirect > h1 {
+  font-weight: 700;
+}
+
+.Redirect > h1, p {
+  color: #121212;
+}

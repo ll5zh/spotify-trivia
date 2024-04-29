@@ -1,3 +1,41 @@
-.next {
-  margin-top: 1rem;
+.Play {
+  background-color: #1DB954;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  /* min-height: 90vh; */
+}
+
+.Play > h1 {
+  font-weight: 700;
+}
+
+.Play > h1, p {
+  color: #121212;
+}
+
+.Play > p {
+  color: #121212;
+  font-weight: 700;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.loader {
+  border: 16px solid #B3B3B3; /* Light grey */
+  border-top: 16px solid #121212; /* Blue */
+  border-radius: 50%;
+  width: calc(4rem + 2vmin);
+  height: calc(4rem + 2vmin);
+  animation: spin 2s linear infinite;
+  margin-top: 0.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

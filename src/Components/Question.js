@@ -12,9 +12,9 @@ function Question(
 
   const [answered, setAnswered] = useState(false);
 
-  const DEFAULT_COLOUR = 'grey';
-  const CORRECT_COLOUR = 'green';
-  const INCORRECT_COLOUR = 'red';
+  const DEFAULT_COLOUR = '#121212';
+  const CORRECT_COLOUR = '#197322';
+  const INCORRECT_COLOUR = '#C0392B';
 
   const [colours, setColours] = useState([DEFAULT_COLOUR, DEFAULT_COLOUR, DEFAULT_COLOUR, DEFAULT_COLOUR]);
 
@@ -54,10 +54,6 @@ function Question(
   }
 
   useEffect(() => {
-    answers.forEach((answer) => {
-      if (answer.track) console.log(answer.track);
-      else console.log(answer.artist);
-    });
     randomizeQuestionOrder();
     
     if (resetQuestion) {
@@ -106,7 +102,7 @@ function Question(
         </button>
       </div>
       {answered &&
-        <p>{caption}</p>
+        <p className="caption">{caption}</p>
       }
     </div>
   )

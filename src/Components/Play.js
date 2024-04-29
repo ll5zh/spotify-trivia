@@ -16,6 +16,8 @@ function Play() {
   
   const [triviaQuestions, setTriviaQuestions] = useState([]);
 
+  const [container, setContainer] = useState(['auto']);
+
   const QUESTION_COUNT = 7;
 
   useEffect(() => {
@@ -59,6 +61,14 @@ function Play() {
       setIndex(0);
     }
   }, [triviaQuestions]);
+
+  useEffect(() => {
+    if (index == -1 || index == QUESTION_COUNT) {
+      setContainer('auto');
+    } else {
+      setContainer('90vh');
+    }
+  }, [index]);
 
   async function sendRequests() {
     const authHeaders = {
@@ -104,11 +114,11 @@ function Play() {
   }
 
   return(
-    <div className="Play">
-      <h3>Let's Play!</h3>
+    <div className="Play" style={{ minHeight: container }}>
+      <h1>Spotify Trivia</h1>
       {index >= 0 && index < QUESTION_COUNT ? (
-        <div>
-          <h4>Question {index + 1}</h4>
+        <div class="play-container">
+          <p className="bold">Question {index + 1} of {QUESTION_COUNT}</p>
           <Question
             prompt={triviaQuestions[index].prompt}
             answers={triviaQuestions[index].answers}
@@ -119,15 +129,16 @@ function Play() {
             key={index.toString()}
           />
           {nextButton &&
-            <button className="next" onClick={showNextQuestion}>Next</button>
+            <button className="button next" onClick={showNextQuestion}>Next</button>
           }
         </div>
       ) : index == QUESTION_COUNT ? (
         <div>
-          <h4>Thanks for playing! Your score is { score } out of { QUESTION_COUNT }.</h4>
+          <p className="bold">Thanks for playing! Your score is { score } out of { QUESTION_COUNT }.</p>
+          <button className="button">Log out</button>
         </div>
       ): (
-        <h4>Waiting</h4>
+        <div class="loader"></div>
       )
       }
       

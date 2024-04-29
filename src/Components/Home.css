@@ -1,0 +1,12 @@
+.Home {
+  background-color: #1DB954;
+  padding: 2rem;
+}
+
+.Home > h1 {
+  font-weight: 700;
+}
+
+.Home > h1, p {
+  color: #121212;
+}

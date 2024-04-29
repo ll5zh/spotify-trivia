@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CLIENT_ID, REDIRECT_URI, SCOPE } from '../constants';
 import { useNavigate } from 'react-router-dom';
+import './Redirect.css';
 
 function Redirect() {
   const navigate = useNavigate();
@@ -39,9 +40,6 @@ function Redirect() {
     const response = await body.json();
     window.localStorage.setItem('access_token', response.access_token);
     setToken(response.access_token);
-    console.log(response);
-    console.log(window.localStorage);
-    console.log(token);
   }
 
   function redirectPlay() {
@@ -50,8 +48,9 @@ function Redirect() {
 
   return (
     <div className="Redirect">
-      <h3>You are logged in!</h3>
-      <button onClick={() => redirectPlay()}>Click to play</button>
+      <h1>You are logged in!</h1>
+      <p>Ready to take the ultimate Spotify trivia test?</p>
+      <button className="button" onClick={() => redirectPlay()}>Play now!</button>
     </div>
   );
 }

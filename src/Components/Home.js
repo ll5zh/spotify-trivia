@@ -1,4 +1,5 @@
 import { CLIENT_ID, REDIRECT_URI, SCOPE } from '../constants';
+import './Home.css';
 
 function Home() {
   // functions for authorization with PKCE flow
@@ -44,10 +45,9 @@ function Home() {
 
   return (
     <div className="Home">
-      <header className="App-header">
-        <button onClick={loginWithSpotify}>Login with Spotify</button>
-        <h3>Welcome</h3>
-      </header>
+      <h1>Spotify Trivia</h1>
+      <p>How well do you know your Spotify listening history? Play to find out!</p>
+      <button class="button" onClick={loginWithSpotify}>Login</button>
     </div>
   );
 }
