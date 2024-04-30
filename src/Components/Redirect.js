@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CLIENT_ID, REDIRECT_URI, SCOPE } from '../constants';
+import { CLIENT_ID, REDIRECT_URI, SCOPE } from '../Constants/constants';
 import { useNavigate } from 'react-router-dom';
 import './Redirect.css';
 

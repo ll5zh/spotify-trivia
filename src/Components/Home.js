@@ -1,4 +1,4 @@
-import { CLIENT_ID, REDIRECT_URI, SCOPE } from '../constants';
+import { CLIENT_ID, REDIRECT_URI, SCOPE } from '../Constants/constants';
 import './Home.css';
 
 function Home() {
@@ -47,7 +47,10 @@ function Home() {
     <div className="Home">
       <h1>Spotify Trivia</h1>
       <p>How well do you know your Spotify listening history? Play to find out!</p>
-      <button class="button" onClick={loginWithSpotify}>Login</button>
+      <div>
+        <button class="button" onClick={loginWithSpotify}>Login</button>
+        <button class="button">Demo</button>
+      </div>
     </div>
   );
 }

@@ -10,3 +10,9 @@
 .Home > h1, p {
   color: #121212;
 }
+
+.Home > div {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
