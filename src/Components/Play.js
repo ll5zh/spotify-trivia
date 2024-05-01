@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { BASE_URL } from '../Constants/constants';
+import { recentTracksDemo, topTracksDemo, topArtistsDemo } from '../Constants/demoData';
 import Question from './Question';
 import { createRecentTrack, createTopItem, createPopularityItem } from './questions';
 import './Play.css';
 
 function Play() {
+  const location = useLocation();
+  const { isDemo } = location.state;
+
   const [token, setToken] = useState('');
 
   const [recentTracks, setRecentTracks] = useState([]);
@@ -21,20 +26,21 @@ function Play() {
   const QUESTION_COUNT = 7;
 
   useEffect(() => {
-    const accessToken = window.localStorage.getItem('access_token');
-    if (accessToken) {
-      setToken(accessToken);
-      if (token) {
-        sendRequests();
+    if (isDemo) {
+      mockDemoRequests();
+    } else {
+      const accessToken = window.localStorage.getItem('access_token');
+      if (accessToken) {
+        setToken(accessToken);
+        if (token) {
+          sendRequests();
+        }
       }
     }
   }, [token]);
 
   useEffect(() => {
     if (recentTracks != '' && topTracks != '' && topArtists != '') {
-      console.log(recentTracks);
-      console.log(topTracks);
-      console.log(topArtists);
       // create questions
       const recentTrackQuestion = createRecentTrack(recentTracks);
       const topTrackQuestion = createTopItem(topTracks, 'track');
@@ -57,7 +63,6 @@ function Play() {
 
   useEffect(() => {
     if (triviaQuestions.length === QUESTION_COUNT) {
-      console.log(triviaQuestions);
       setIndex(0);
     }
   }, [triviaQuestions]);
@@ -76,7 +81,7 @@ function Play() {
     };
 
     // recent tracks
-    const recentTracksResponse = await axios.get(BASE_URL + '/me/player/recently-played?limit=4', {
+    const recentTracksResponse = await axios.get(BASE_URL + '/me/player/recently-played?limit=50', {
       headers: authHeaders,
     });
     setRecentTracks(recentTracksResponse.data.items);
@@ -92,6 +97,12 @@ function Play() {
       headers: authHeaders,
     });
     setTopArtists(topArtistsResponse.data.items);
+  }
+
+  function mockDemoRequests() {
+    setRecentTracks(recentTracksDemo);
+    setTopTracks(topTracksDemo);
+    setTopArtists(topArtistsDemo);
   }
 
   const [nextButton, setNextButton] = useState(false);
@@ -117,7 +128,7 @@ function Play() {
     <div className="Play" style={{ minHeight: container }}>
       <h1>Spotify Trivia</h1>
       {index >= 0 && index < QUESTION_COUNT ? (
-        <div class="play-container">
+        <div className="play-container">
           <p className="bold">Question {index + 1} of {QUESTION_COUNT}</p>
           <Question
             prompt={triviaQuestions[index].prompt}
@@ -138,7 +149,7 @@ function Play() {
           <button className="button">Log out</button>
         </div>
       ): (
-        <div class="loader"></div>
+        <div className="loader"></div>
       )
       }
       

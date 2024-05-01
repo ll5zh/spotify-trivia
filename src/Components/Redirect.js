@@ -43,7 +43,7 @@ function Redirect() {
   }
 
   function redirectPlay() {
-    navigate('/play');
+    navigate('/play', { state: { isDemo: false } });
   }
 
   return (

@@ -1,7 +1,10 @@
 import { CLIENT_ID, REDIRECT_URI, SCOPE } from '../Constants/constants';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
 function Home() {
+  const navigate = useNavigate();
+
   // functions for authorization with PKCE flow
   function generateCodeVerifier(length) {
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -43,13 +46,18 @@ function Home() {
     window.location.href = authUrl.toString();
   }
 
+  function playDemo() {
+    console.log('playDemo');
+    navigate('/play', { state: { isDemo: true } });
+  }
+
   return (
     <div className="Home">
       <h1>Spotify Trivia</h1>
       <p>How well do you know your Spotify listening history? Play to find out!</p>
       <div>
-        <button class="button" onClick={loginWithSpotify}>Login</button>
-        <button class="button">Demo</button>
+        <button className="button" onClick={loginWithSpotify}>Login</button>
+        <button className="button" onClick={playDemo}>Demo</button>
       </div>
     </div>
   );
