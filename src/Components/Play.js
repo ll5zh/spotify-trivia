@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { BASE_URL } from '../Constants/constants';
 import { recentTracksDemo, topTracksDemo, topArtistsDemo } from '../Constants/demoData';
@@ -8,6 +8,7 @@ import { createRecentTrack, createTopItem, createPopularityItem } from './questi
 import './Play.css';
 
 function Play() {
+  const navigate = useNavigate();
   const location = useLocation();
   const { isDemo } = location.state;
 
@@ -124,6 +125,14 @@ function Play() {
     }
   }
 
+  function endGame() {
+    if (!isDemo) {
+      window.localStorage.removeItem('access_token');
+      window.localStorage.removeItem('code_verifier');
+    }
+    navigate('/');
+  }
+
   return(
     <div className="Play" style={{ minHeight: container }}>
       <h1>Spotify Trivia</h1>
@@ -146,7 +155,12 @@ function Play() {
       ) : index == QUESTION_COUNT ? (
         <div>
           <p className="bold">Thanks for playing! Your score is { score } out of { QUESTION_COUNT }.</p>
-          <button className="button">Log out</button>
+          {isDemo ? (
+            <button className="button" onClick={endGame}>Return</button>
+          ) : (
+            <button className="button" onClick={endGame}>Log out</button>
+          )
+          }
         </div>
       ): (
         <div className="loader"></div>
