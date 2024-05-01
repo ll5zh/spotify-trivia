@@ -8,16 +8,9 @@ export const recentTracksDemo = [
   {
       "track": {
           "album": {
-              "artists": [
-                  {
-                      "name": "DOYOUNG",
-                  }
-              ],
               "images": [
                   {
-                      "height": 640,
                       "url": "https://i.scdn.co/image/ab67616d0000b273c9718133b45cf5b97cd91d38",
-                      "width": 640
                   },
               ],
           },
@@ -35,9 +28,7 @@ export const recentTracksDemo = [
           "album": {
               "images": [
                   {
-                      "height": 640,
                       "url": "https://i.scdn.co/image/ab67616d0000b2736c498180e56f57e7d7bcdb86",
-                      "width": 640
                   },
               ],
           },
@@ -55,9 +46,7 @@ export const recentTracksDemo = [
           "album": {
               "images": [
                   {
-                      "height": 640,
                       "url": "https://i.scdn.co/image/ab67616d0000b273d8bd453784ae431700a851b0",
-                      "width": 640
                   },
               ],
           },
@@ -75,9 +64,7 @@ export const recentTracksDemo = [
         "album": {
             "images": [
                 {
-                    "height": 640,
                     "url": "https://i.scdn.co/image/ab67616d0000b2738b58d20f1b77295730db15b4",
-                    "width": 640
                 },
             ],
         },

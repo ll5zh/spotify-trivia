@@ -1,16 +1,31 @@
 export function createRecentTrack(data) {
   const prompt = 'Which track did you listen to most recently?';
 
-  console.log(data);
-
   let answers = [];
-  data.forEach((track) => {
-    answers.push({
-      track: track.track.name,
-      artist: track.track.artists[0].name,
-      image: track.track.album.images[0].url,
-    });
-  });
+
+  // add unique tracks
+  for (let i = 0; i < 50; i++) {
+    if (answers.length == 4) break;
+    if (answers.indexOf(data[i]) == -1) {
+      answers.push({
+        track: data[i].track.name,
+        artist: data[i].track.artists[0].name,
+        image: data[i].track.album.images[0].url,
+      });
+    }
+  }
+
+  // add backup tracks if there aren't 4 unique tracks
+  for (let i = 0; i < 4; i++) {
+    if (answers.length == 4) break;
+    if (answers.indexOf(recentTracksBackup[i]) == -1) {
+      answers.push({
+        track: recentTracksBackup[i].track.name,
+        artist: recentTracksBackup[i].track.artists[0].name,
+        image: recentTracksBackup[i].album.images[0].url,
+      })
+    }
+  }
 
   const caption = `Last played at: ${data[0].played_at}.`;
 
@@ -63,7 +78,6 @@ export function createPopularityItem(data, type, isMostPopular) {
     data.sort((a, b) => a.popularity - b.popularity); // lowest popularity first
   }
   const popularityToRemove = data[0].popularity;
-  console.log(popularityToRemove);
 
   let answers = [];
   if (type === 'track') {
