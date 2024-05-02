@@ -55,6 +55,7 @@ function Home() {
     <div className="Home">
       <h1>Spotify Trivia</h1>
       <p>How well do you know your Spotify listening history? Play to find out!</p>
+      <p>Log in for a personalized experience, or try the quick demo!</p>
       <div>
         <button className="button" onClick={loginWithSpotify}>Login</button>
         <button className="button" onClick={playDemo}>Demo</button>
