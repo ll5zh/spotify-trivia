@@ -6,20 +6,20 @@ import './Redirect.css';
 function Redirect() {
   const navigate = useNavigate();
 
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState(undefined);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     let code = urlParams.get('code');
-    console.log(code);
     if (code) {
       getToken(code);
+    } else {
+      setToken('');
     }
   }, []);
 
   async function getToken(code) {
     let codeVerifier = window.localStorage.getItem('code_verifier');
-    console.log(codeVerifier);
     const payload = {
       method: 'POST',
       headers: {
@@ -38,19 +38,39 @@ function Redirect() {
     
     const body = await fetch(endpoint.toString(), payload);
     const response = await body.json();
-    window.localStorage.setItem('access_token', response.access_token);
-    setToken(response.access_token);
+    if (body.status == 200) {
+      window.localStorage.setItem('access_token', response.access_token);
+      setToken(response.access_token);
+    } else {
+      setToken('');
+    }
   }
 
-  function redirectPlay() {
-    navigate('/play', { state: { isDemo: false } });
+  function redirectPlay(isPlay) {
+    if (isPlay) navigate('/play', { state: { isDemo: false } });
+    else navigate('/');
   }
+
 
   return (
     <div className="Redirect">
-      <h1>You are logged in!</h1>
-      <p>Ready to take the ultimate Spotify trivia test?</p>
-      <button className="button" onClick={() => redirectPlay()}>Play now!</button>
+      {
+        token == undefined ? (
+          <div className="loader"></div>
+        ) : token == '' ? (
+          <div>
+            <h1>Hmm, we couldn't log you in...</h1>
+            <p>Please return to the home page and try again!</p>
+            <button className="button" onClick={() => redirectPlay(false)}>Return</button>
+          </div>
+        ) : (
+          <div>
+            <h1>You are logged in!</h1>
+            <p>Ready to take the ultimate Spotify trivia test?</p>
+            <button className="button" onClick={() => redirectPlay(true)}>Play now!</button>
+          </div>
+        ) 
+      }
     </div>
   );
 }

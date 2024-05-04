@@ -3,10 +3,10 @@
   padding: 2rem;
 }
 
-.Redirect > h1 {
+.Redirect h1 {
   font-weight: 700;
 }
 
-.Redirect > h1, p {
+.Redirect h1, p {
   color: #121212;
 }

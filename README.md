@@ -6,5 +6,4 @@ Are you an avid music listener? Test how well you know your Spotify listening hi
 ## About
 Built using ReactJS. Integrates the Spotify API and authorizes users using the authorization code flow with PKCE.
 
-Spotify Trivia is a personal project built for non-commercial purposes.
-
+Spotify Trivia is a personal project built purely for non-commercial, educational purposes.

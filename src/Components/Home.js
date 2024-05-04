@@ -31,7 +31,6 @@ function Home() {
     const codeChallenge = base64encode(hashed);
 
     window.localStorage.setItem('code_verifier', codeVerifier);
-    console.log(codeVerifier);
 
     let authUrl = new URL('https://accounts.spotify.com/authorize');
     const params = {
@@ -47,7 +46,6 @@ function Home() {
   }
 
   function playDemo() {
-    console.log('playDemo');
     navigate('/play', { state: { isDemo: true } });
   }
 

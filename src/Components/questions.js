@@ -1,4 +1,5 @@
 import { recentTracksBackup } from '../Constants/backup';
+import { getMonth } from '../Constants/constants';
 
 export function createRecentTrack(data) {
   const prompt = 'Which track did you listen to most recently?';
@@ -29,7 +30,16 @@ export function createRecentTrack(data) {
     }
   }
 
-  const caption = `Last played at: ${data[0].played_at}.`;
+  // convert ISO 8601 date into English
+  const date = new Date(data[0].played_at);
+  const year = date.getFullYear();
+  const month = getMonth(date.getMonth() + 1);
+  const day = date.getDay();
+  const hour = date.getUTCHours();
+  const minute = date.getUTCMinutes();
+  const time = `${month} ${day} ${year}, at ${hour}:${minute} UTC`;
+
+  const caption = `Last played at: ${time}.`;
 
   return {
     prompt: prompt,
