@@ -1,13 +1,14 @@
 .Home {
   background-color: #1DB954;
   padding: 2rem;
+  
 }
 
 .Home > h1 {
   font-weight: 700;
 }
 
-.Home > h1, p {
+.Home > h1, p, a {
   color: #121212;
 }
 
@@ -15,4 +16,9 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.Home > a {
+  font-weight: 600;
 }

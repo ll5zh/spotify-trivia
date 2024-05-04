@@ -58,6 +58,7 @@ function Home() {
         <button className="button" onClick={loginWithSpotify}>Login</button>
         <button className="button" onClick={playDemo}>Demo</button>
       </div>
+      <a href="https://github.com/ll5zh/spotify-trivia">View Source Code</a>
     </div>
   );
 }
