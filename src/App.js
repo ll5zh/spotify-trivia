@@ -7,7 +7,7 @@ import Play from './Components/Play';
 function App() {
   return (
     <div className="App">
-      <Router>
+      <Router basename="/spotify-trivia">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/redirect" element={<Redirect />} />
