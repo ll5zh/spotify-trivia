@@ -34,7 +34,7 @@ export function createRecentTrack(data) {
   const date = new Date(data[0].played_at);
   const year = date.getFullYear();
   const month = getMonth(date.getMonth() + 1);
-  const day = date.getDay();
+  const day = date.getDate();
   const hour = date.getUTCHours();
   const minute = date.getUTCMinutes();
   const time = `${month} ${day} ${year}, at ${hour}:${minute} UTC`;
